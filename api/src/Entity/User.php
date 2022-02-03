@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Controller\UserByClientController;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -12,6 +13,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['read:collection']],
+    /*collectionOperations: [
+        'userByClient' => [
+            'method' => 'GET',
+            'path' => '/users/client',
+            'controller' => UserByClientController::class,
+            'openapi_context' => [
+                'summary' => 'recupere les utilisateur lié a un client'
+            ]
+        ]
+    ],*/
     itemOperations: [
         'put' => [
             'denormalization_context' => ['groups' => ['put']]
@@ -55,6 +66,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -82,7 +100,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
