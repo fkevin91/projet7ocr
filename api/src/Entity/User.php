@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Controller\UserByClientController;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -13,16 +12,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['read:collection']],
-    /*collectionOperations: [
-        'userByClient' => [
-            'method' => 'GET',
-            'path' => '/users/client',
-            'controller' => UserByClientController::class,
-            'openapi_context' => [
-                'summary' => 'recupere les utilisateur lié a un client'
-            ]
-        ]
-    ],*/
     itemOperations: [
         'put' => [
             'denormalization_context' => ['groups' => ['put']]
@@ -46,31 +35,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $username;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:item', 'put'])]
+    #[Groups(['read:collection', 'read:item', 'put'])]
     private $email;
 
     #[ORM\Column(type: 'json', nullable: true)]
-    #[Groups(['read:item', 'put'])]
+    #[Groups(['read:collection', 'read:item', 'put'])]
     private $roles = [];
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:item', 'put'])]
+    #[Groups(['read:collection', 'read:item', 'put'])]
     private $password;
 
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'users')]
-    #[Groups(['read:item'])]
+    #[Groups(['read:collection', 'read:item'])]
     private $client;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -100,7 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
 
     /**

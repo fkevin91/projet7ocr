@@ -11,8 +11,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-#[ApiResource]
-class Client
+#[ApiResource(
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:collection', 'read:item', 'read:User']]
+        ]
+]
+)]class Client
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
