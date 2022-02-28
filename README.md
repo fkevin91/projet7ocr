@@ -2,6 +2,8 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/922d12d6946e449598b26b5ece835e40)](https://www.codacy.com/gh/fkevin91/projet7ocr/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fkevin91/projet7ocr&amp;utm_campaign=Badge_Grade)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/b349825efd55f8f31c80/maintainability)](https://codeclimate.com/github/fkevin91/projet7ocr/maintainability)
+
 ## Telecharger Docker pour votre système d’exploitation 
 
     _ https://www.docker.com/get-started
