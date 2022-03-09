@@ -15,3 +15,18 @@ api_platform:
             shared_max_age: 3600
             # Default values of the "Vary" HTTP header.
             vary: ['Accept']
+             # To enable or disable pagination for all resource collections.
+            pagination_enabled: true
+            # To allow the client to enable or disable the pagination.
+            pagination_client_enabled: false
+            # To allow the client to set the number of items per page.
+            pagination_client_items_per_page: false
+            # To allow the client to enable or disable the partial pagination.
+            pagination_client_partial: false
+            # The default number of items per page.
+            pagination_items_per_page: 30
+            # The maximum number of items per page.
+            pagination_maximum_items_per_page: ~
+            # To allow partial pagination for all resource collections.
+            # This improves performances by skipping the `COUNT` query.
+            pagination_partial: false
